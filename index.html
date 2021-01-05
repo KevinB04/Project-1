@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+  </head>
+  <!-- background image and  -->
+
+  <body style="background-color: white;">
+
+
+    <div class="container">
+      <div class="page-header">
+        <h1>Covid Targeted Donations</h1>
+
+      </div>
+      <!-- navigation bar where we can redirect people -->
+      <nav class="navbar navbar-light" style="background-color: #b3e6b3;">
+        <div class="container">
+          <span class="col-12 navbar-brand mb-0 h1 text-center">Use the map to search for your State, city, or
+            address.</span>
+
+        </div>
+      </nav>
+      <!-- The start of the container -->
+      <div class="container" style="padding-left: 0px;padding-right: 0px">
+        <!-- google map container-->
+        <div class="map"></div>
+        <!-- search section -->
+        <section class="input-group"
+          style="display: flex;justify-content: center;padding-top: 5px;padding-bottom: 5px;">
+          <input class="form-control address" style="max-width: 50%;" type=" text" placeholder="Enter Address">
+          <div class="group-append">
+            <button class="btn btn-outline-secondary text-white fa fa-search" id="submit"></button>
+          </div>
+        </section>
+        <!-- The start of the 3 main and sub sections and first row -->
+        <section class="row">
+          <div class="col-md-8" style=>
+            <div class="card shadow">
+              <h5 id="general-title" class="card-title">General COVID Statistics</h5>
+              <div class="card-body row">
+                <!-- style="height: 232px;" -->
+                <ul id="general-risk" class="list-group col-2">
+                  <li id="density-risk" class="list-group-item">
+                    <b>Case Density Rating: </b>
+                    <span id="density-span"></span>
+                  </li>
+                  <li id="infection-risk" class="list-group-item">
+                    <b>Infection Rate Rating: </b>
+                    <span id="infection-span"></span>
+                  </li>
+                  <li id="test-ratio-risk" class="list-group-item">
+                    <b>Positive Test Ratio Rating: </b>
+                    <span id="test-ratio-span"></span>
+                  </li>
+                </ul>
+                <div id="total-cases-contain" class="col-5">
+                  <canvas id="total-cases"></canvas>
+                </div>
+                <div id="total-deaths-contain" class="col-5">
+                  <canvas id="total-deaths"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4" style="margin: auto;">
+            <div class="card">
+              <h5 class="card-title">Nearby Charities (General)</h5>
+              <ul id="charity-general" class="card-body">
+
+              </ul>
+            </div>
+          </div>
+
+      </div>
+      <!-- second row -->
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <h5 id="hospital-title" class="card-title">Hospital Response to COVID</h5>
+            <div class="card-body row">
+              <ul id="hospital-risk" class="list-group col-2">
+                <li id="tracer-risk" class="list-group-item">
+                  <b>Contact Tracer Capacity Rating: </b>
+                  <span id="tracer-span"></span>
+                </li>
+                <li id="icu-capacity-risk" class="list-group-item">
+                  <b>ICU Capacity Rating: </b>
+                  <span id="icu-capacity-span"></span>
+                </li>
+                <li id="icu-headroom-risk" class="list-group-item">
+                  <b>ICU Headroom Rating: </b>
+                  <span id="icu-headroom-span"></span>
+                </li>
+              </ul>
+              <div class="col-5">
+                <div id="icu-bed-usage-contain">
+                  <canvas id="icu-bed-usage"></canvas>
+                </div>
+                <div id="estimated-beds" class="card visually-hidden">
+                  <h5 class="card-title">Estimated COVID Hospital Beds</h5>
+                  <div id="estimated-beds-value" class="card-body"></div>
+                </div>
+              </div>
+              <div class="col-5">
+                <div id="total-tracers-contain">
+                  <canvas id="tracer-totals"></canvas>
+                </div>
+                <div id="estimated-tracers" class="card visually-hidden">
+                  <h5 class="card-title">Estimated Contact Tracers</h5>
+                  <div id="estimated-tracers-value" class="card-body"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <h5 class="card-title">Nearby Charities (Hospital)</h5>
+            <ul id="charity-hospital" class="card-body">
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Third row -->
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="card">
+            <h5 id="govt-title" class="card-title">Government Response to COVID</h5>
+            <div class="card-body" style="height: 232px;">
+              <ul class="list-group">
+                <li class="list-group-item">Bar Restrictions: <span id="bar-restrictions"></span></li>
+                <li class="list-group-item">Gathering Restrictions: <span id="gathering-restrictions"></span></li>
+                <li class="list-group-item">Non-Essential Businesses: <span id="nonessential-restrictions"></span></li>
+                <li class="list-group-item">Reopen Status: <span id="open-status"></span></li>
+                <li class="list-group-item">Stay at Home Requirement: <span id="stay-at-home"></span></li>
+                <li class="list-group-item">Restaurant Restrictions: <span id="restuarant-restrictions"></span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <h5 class="card-title">Nearby Charities (Gov't/Small Business)</h5>
+            <ul id="charity-employment" class="card-body">
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="./assets/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </body>
+
+</html>
